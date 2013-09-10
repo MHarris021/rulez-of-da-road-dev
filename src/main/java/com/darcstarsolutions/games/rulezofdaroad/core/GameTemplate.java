@@ -1,5 +1,6 @@
 package com.darcstarsolutions.games.rulezofdaroad.core;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -8,7 +9,12 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class GameTemplate {
+public class GameTemplate implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private BigInteger id;

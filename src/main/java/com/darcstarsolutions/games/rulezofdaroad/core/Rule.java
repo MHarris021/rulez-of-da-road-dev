@@ -1,12 +1,18 @@
 package com.darcstarsolutions.games.rulezofdaroad.core;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Rule {
+public class Rule implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private BigInteger id;
