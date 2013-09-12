@@ -25,7 +25,7 @@ public class GameTemplate implements Serializable{
 	private List<PlayerTemplate> playerTemplates;
 	
 	@DBRef
-	private List<Rule> defaultRules;
+	private List<PlayerRule> defaultRules;
 
 	
 	public GameTemplate() {
@@ -76,14 +76,14 @@ public class GameTemplate implements Serializable{
 	/**
 	 * @return the defaultRules
 	 */
-	public List<Rule> getDefaultRules() {
+	public List<PlayerRule> getDefaultRules() {
 		return defaultRules;
 	}
 
 	/**
 	 * @param defaultRules the defaultRules to set
 	 */
-	public void setDefaultRules(List<Rule> defaultRules) {
+	public void setDefaultRules(List<PlayerRule> defaultRules) {
 		this.defaultRules = defaultRules;
 	}
 	

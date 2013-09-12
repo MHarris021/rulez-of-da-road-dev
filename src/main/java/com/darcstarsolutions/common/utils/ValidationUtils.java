@@ -45,7 +45,7 @@ public class ValidationUtils {
 	 */
 	public <T> void logConstraintViolations(
 			Set<ConstraintViolation<T>> constraintViolations) {
-		StringBuilder builder = buildConstrainViolationMessage(constraintViolations);
+		StringBuilder builder = buildConstraintViolationMessage(constraintViolations);
 		LOGGER.info(builder.toString());
 	}
 
@@ -53,7 +53,7 @@ public class ValidationUtils {
 	 * @param constraintViolations
 	 * @return
 	 */
-	public <T>StringBuilder buildConstrainViolationMessage(
+	public <T>StringBuilder buildConstraintViolationMessage(
 			Set<ConstraintViolation<T>> constraintViolations) {
 		StringBuilder builder = new StringBuilder(CONSTRAINT_VIOLATION_MESSAGE);
 		if(constraintViolations.size() >1 ){
@@ -61,8 +61,14 @@ public class ValidationUtils {
 		}
 		for (ConstraintViolation<T> constraintViolation : constraintViolations) {
 			builder.append(constraintViolation.getPropertyPath());
+			Object object = constraintViolation.getInvalidValue();
 			builder.append(" [");
-			builder.append(constraintViolation.getInvalidValue().toString());
+			if(object != null){
+				builder.append(constraintViolation.getInvalidValue().toString());
+			}
+			else {
+				builder.append("null");
+			}
 			builder.append("] ");
 			builder.append(constraintViolation.getMessage());
 			builder.append(", ");

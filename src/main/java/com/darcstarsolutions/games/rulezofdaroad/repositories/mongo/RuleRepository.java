@@ -5,9 +5,9 @@ import java.math.BigInteger;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.darcstarsolutions.games.rulezofdaroad.core.Rule;
+import com.darcstarsolutions.games.rulezofdaroad.core.PlayerRule;
 
 @Repository
-public interface RuleRepository extends MongoRepository<Rule, BigInteger>{
+public interface RuleRepository extends MongoRepository<PlayerRule, BigInteger>{
 
 }

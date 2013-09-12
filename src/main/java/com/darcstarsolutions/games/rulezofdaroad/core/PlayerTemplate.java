@@ -22,7 +22,7 @@ public class PlayerTemplate implements Serializable{
 	private int number;
 	
 	@DBRef
-	private List<Rule> rules;
+	private List<Rule<Player>> rules;
 	
 	public PlayerTemplate() {
 	}
@@ -56,16 +56,16 @@ public class PlayerTemplate implements Serializable{
 	}
 
 	/**
-	 * @return the rules
+	 * @return the playerRules
 	 */
-	public List<Rule> getRules() {
+	public List<Rule<Player>> getRules() {
 		return rules;
 	}
 
 	/**
-	 * @param rules the rules to set
+	 * @param playerRules the playerRules to set
 	 */
-	public void setRules(List<Rule> rules) {
+	public void setRules(List<Rule<Player>> rules) {
 		this.rules = rules;
 	}
 	

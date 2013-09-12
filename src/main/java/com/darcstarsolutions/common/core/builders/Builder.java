@@ -10,20 +10,22 @@ public abstract class Builder<Entity extends Serializable> {
 	/**
 	 * @return the entity
 	 */
-	protected Entity getEntity() {
-		return entity;
+	@SuppressWarnings("unchecked")
+	protected <T extends Entity> T getEntity() {
+		return (T) entity;
 	}
 
 	/**
 	 * @param entity
 	 *            the entity to set
 	 */
-	protected void setEntity(Entity entity) {
+	protected <T extends Entity>void setEntity(T entity) {
 		this.entity = entity;
 	}
 
-	public Entity build() {
-		return entity;
+	@SuppressWarnings("unchecked")
+	public <T extends Entity> T build() {
+		return (T)entity;
 	}
 
 }
