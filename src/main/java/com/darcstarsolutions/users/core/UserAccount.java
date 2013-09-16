@@ -3,10 +3,15 @@ package com.darcstarsolutions.users.core;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 
 @Entity
 public class UserAccount implements Serializable {
@@ -17,16 +22,25 @@ public class UserAccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, columnDefinition="bigint")
 	private BigInteger id;
 
 	@NotBlank
+	@Column(unique = true)
 	private String name;
 
 	@Email
-	private String email;
+	@NotNull
+	@Column
+	private String email = "";
 
 	@NotBlank
+	@Column
 	private String password;
+
+	protected UserAccount() {
+	}
 
 	public UserAccount(String name, String password) {
 		setName(name);
@@ -41,7 +55,8 @@ public class UserAccount implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(BigInteger id) {
 		this.id = id;
@@ -55,7 +70,8 @@ public class UserAccount implements Serializable {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -69,7 +85,8 @@ public class UserAccount implements Serializable {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -83,12 +100,11 @@ public class UserAccount implements Serializable {
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }
