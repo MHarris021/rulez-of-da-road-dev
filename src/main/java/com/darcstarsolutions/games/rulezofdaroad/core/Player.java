@@ -11,6 +11,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Player implements Serializable {
+	
+	public static final String DEFAULT_PLAYER_NAME = "Default Player";
 
 	/**
 	 * 
@@ -23,7 +25,7 @@ public class Player implements Serializable {
     private String name;
 	
 	@NotNull
-    private Long score = 0L;
+    private long score = 0L;
 	
 	@DBRef
 	@Valid

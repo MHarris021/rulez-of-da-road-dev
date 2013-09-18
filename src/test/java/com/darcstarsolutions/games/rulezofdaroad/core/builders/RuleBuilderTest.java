@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.darcstarsolutions.common.utils.ValidationUtils;
-import com.darcstarsolutions.games.rulezofdaroad.config.BuildersConfig;
-import com.darcstarsolutions.games.rulezofdaroad.config.UtilsConfig;
+import com.darcstarsolutions.games.rulezofdaroad.config.builders.BuildersConfig;
+import com.darcstarsolutions.games.rulezofdaroad.config.utils.UtilsConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { UtilsConfig.class, BuildersConfig.class })

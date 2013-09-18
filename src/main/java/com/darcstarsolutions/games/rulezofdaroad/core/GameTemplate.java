@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class GameTemplate implements Serializable{
-	
+@Document(collection = "gameTemplatess")
+public class GameTemplate implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -18,19 +22,26 @@ public class GameTemplate implements Serializable{
 
 	@Id
 	private BigInteger id;
-	
-	private int uniquePlayers;
-	
-	@DBRef
-	private List<PlayerTemplate> playerTemplates;
-	
-	@DBRef
-	private List<PlayerRule> defaultRules;
 
-	
+	@Indexed
+	@NotNull
+	private String description;
+
+	private int uniquePlayers;
+
+	@DBRef
+	@Valid
+	private List<PlayerTemplate> playerTemplates;
+
+	@DBRef
+	@Valid
+	private List<Rule<Game>> rules;
+
+	public static final int DEFAULT_UNIQUE_PLAYERS = 1;
+
 	public GameTemplate() {
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -39,10 +50,26 @@ public class GameTemplate implements Serializable{
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(BigInteger id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**
@@ -53,7 +80,8 @@ public class GameTemplate implements Serializable{
 	}
 
 	/**
-	 * @param uniquePlayers the uniquePlayers to set
+	 * @param uniquePlayers
+	 *            the uniquePlayers to set
 	 */
 	public void setUniquePlayers(int uniquePlayers) {
 		this.uniquePlayers = uniquePlayers;
@@ -67,25 +95,26 @@ public class GameTemplate implements Serializable{
 	}
 
 	/**
-	 * @param playerTemplates the playerTemplates to set
+	 * @param playerTemplates
+	 *            the playerTemplates to set
 	 */
 	public void setPlayerTemplates(List<PlayerTemplate> playerTemplates) {
 		this.playerTemplates = playerTemplates;
 	}
 
 	/**
-	 * @return the defaultRules
+	 * @return the rules
 	 */
-	public List<PlayerRule> getDefaultRules() {
-		return defaultRules;
+	public List<Rule<Game>> getRules() {
+		return rules;
 	}
 
 	/**
-	 * @param defaultRules the defaultRules to set
+	 * @param rules
+	 *            the rules to set
 	 */
-	public void setDefaultRules(List<PlayerRule> defaultRules) {
-		this.defaultRules = defaultRules;
+	public void setRules(List<Rule<Game>> rules) {
+		this.rules = rules;
 	}
-	
-	
+
 }

@@ -1,4 +1,4 @@
-package com.darcstarsolutions.games.rulezofdaroad.config;
+package com.darcstarsolutions.games.rulezofdaroad.config.repositories;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,19 +9,30 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 @Configuration
+@Profile(value={"jpa", "prod"})
 public class JpaDataBaseConfig {
+
+	private static final String DATABASE_DRIVER_CLASSNAME = "org.postgresql.Driver";
+
+	private static final String JDBC_PREFIX = "jdbc:postgresql://";
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(JpaDataBaseConfig.class);
 
 	@Value("${DATABASE_URL}")
 	private String suppliedDbUrl;
+
+	@Autowired
+	private Environment environment;
 
 	@Bean
 	public URI databaseUrl() {
@@ -42,24 +53,51 @@ public class JpaDataBaseConfig {
 		SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
 		URI databaseUri = databaseUrl();
 
-		StringBuilder url = new StringBuilder("jdbc:postgresql://");
+		String databaseUrl = createConnectionURI(databaseUri);
+		dataSource.setUrl(databaseUrl);
+		dataSource.setDriverClassName(DATABASE_DRIVER_CLASSNAME);
+		assignCredentials(dataSource, databaseUri);
+		dataSource.setSuppressClose(true);
+		Properties connectionProperties = createDatabaseProperties();
+		dataSource.setConnectionProperties(connectionProperties);
+
+		return dataSource;
+	}
+
+	/**
+	 * @param databaseUri
+	 */
+	private String createConnectionURI(URI databaseUri) {
+		StringBuilder url = new StringBuilder(JDBC_PREFIX);
 		url.append(databaseUri.getHost());
 		url.append(":" + databaseUri.getPort());
-		url.append("/" + databaseUri.getPath());
-		dataSource.setUrl(url.toString());
-		dataSource.setDriverClassName("org.postgresql.Driver");
+		url.append(databaseUri.getPath());
+		return url.toString();
+	}
+
+	/**
+	 * @return
+	 */
+	private Properties createDatabaseProperties() {
+		Properties connectionProperties = new Properties();
+		connectionProperties.put("ssl", "true");
+		if (!environment.acceptsProfiles("prod")) {
+			connectionProperties.put("sslfactory",
+					"org.postgresql.ssl.NonValidatingFactory");
+		}
+		return connectionProperties;
+	}
+
+	/**
+	 * @param dataSource
+	 * @param databaseUri
+	 */
+	public void assignCredentials(SingleConnectionDataSource dataSource,
+			URI databaseUri) {
 		String username = databaseUri.getUserInfo().split(":")[0];
 		dataSource.setUsername(username);
 		String password = databaseUri.getUserInfo().split(":")[1];
 		dataSource.setPassword(password);
-		dataSource.setSuppressClose(true);
-		Properties connectionProperties = new Properties();
-		connectionProperties.put("ssl", "true");
-		connectionProperties.put("sslfactory",
-				"org.postgresql.ssl.NonValidatingFactory");
-		dataSource.setConnectionProperties(connectionProperties);
-
-		return dataSource;
 	}
 
 	@Bean(name = "entityProperties")

@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.darcstarsolutions.games.rulezofdaroad.config.BuildersConfig;
-import com.darcstarsolutions.games.rulezofdaroad.config.UtilsConfig;
+import com.darcstarsolutions.games.rulezofdaroad.config.builders.BuildersConfig;
+import com.darcstarsolutions.games.rulezofdaroad.config.utils.UtilsConfig;
 import com.darcstarsolutions.games.rulezofdaroad.core.builders.PlayerRuleBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,11 +13,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "playerTemplates")
-public class PlayerTemplate implements Serializable {
+@Document(collection = "games")
+public class Game implements Serializable {
 
-	public static final int DEFAULT_PLAYER_NUMBER = 0;
-	
 	/**
 	 * 
 	 */
@@ -25,17 +24,23 @@ public class PlayerTemplate implements Serializable {
 	@Id
 	private BigInteger id;
 
-	private int number;
+	@Indexed
+	@NotEmpty
+	private String name;
 
 	@Indexed
 	@NotNull
 	private String description;
 
 	@DBRef
-	@NotEmpty
-	private List<Rule<Player>> rules;
+	@Valid
+	private List<Player> players;
 
-	public PlayerTemplate() {
+	@DBRef
+	@Valid
+	private List<Rule<Game>> rules;
+
+	public Game() {
 	}
 
 	/**
@@ -54,47 +59,47 @@ public class PlayerTemplate implements Serializable {
 	}
 
 	/**
-	 * @return the number
+	 * @return the name
 	 */
-	public int getNumber() {
-		return number;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param number
-	 *            the number to set
+	 * @param name
+	 *            the name to set
 	 */
-	public void setNumber(int number) {
-		this.number = number;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
-	 * @return the description
+	 * @return the players
 	 */
-	public String getDescription() {
-		return description;
+	public List<Player> getPlayers() {
+		return players;
 	}
 
 	/**
-	 * @param description
-	 *            the description to set
+	 * @param players
+	 *            the players to set
 	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
 
 	/**
-	 * @return the playerRules
+	 * @return the rules
 	 */
-	public List<Rule<Player>> getRules() {
+	public List<Rule<Game>> getRules() {
 		return rules;
 	}
 
 	/**
-	 * @param playerRules
-	 *            the playerRules to set
+	 * @param rules
+	 *            the rules to set
 	 */
-	public void setRules(List<Rule<Player>> rules) {
+	public void setRules(List<Rule<Game>> rules) {
 		this.rules = rules;
 	}
 

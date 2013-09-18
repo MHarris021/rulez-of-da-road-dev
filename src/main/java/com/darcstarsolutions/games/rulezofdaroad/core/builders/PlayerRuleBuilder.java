@@ -15,7 +15,7 @@ import com.darcstarsolutions.games.rulezofdaroad.core.PlayerRule;
 public class PlayerRuleBuilder extends
 		RuleBuilder<Player, PlayerRule, PlayerRuleBuilder> {
 
-	public PlayerRuleBuilder setPoints(@NotNull Long points) {
+	public PlayerRuleBuilder setPoints(@NotNull long points) {
 		PlayerRule playerRule = getEntity();
 		playerRule.setPoints(points);
 		if (getValidationUtils().validate(playerRule)) {
@@ -27,12 +27,12 @@ public class PlayerRuleBuilder extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected <P extends PlayerRule> P initializeRule(@NotEmpty Object... objects)
-			throws ConstraintViolationException {
+	protected <P extends PlayerRule> P initializeRule(
+			@NotEmpty Object... objects) throws ConstraintViolationException {
 		PlayerRule playerRule = new PlayerRule();
 		String name = "Default";
 		String description = "";
-		Long points = 0L;
+		long points = 0L;
 		if (objects[0] instanceof CharSequence) {
 			name = (String) objects[0];
 		} else {
@@ -43,8 +43,13 @@ public class PlayerRuleBuilder extends
 		if ((objects.length > 1) && (objects[1] instanceof CharSequence)) {
 			description = (String) objects[1];
 		}
-		if ((objects.length > 2) && (objects[2] instanceof Long)) {
-			points = (Long) objects[2];
+		if (objects.length > 2) {
+
+			if (objects[2] instanceof Long) {
+				points = (Long) objects[2];
+			} else if (objects[2] instanceof Integer) {
+				points = (Integer) objects[2];
+			}
 		}
 		playerRule.setName(name);
 		playerRule.setDescription(description);

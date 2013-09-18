@@ -20,8 +20,9 @@ import com.darcstarsolutions.users.config.UserRepositoryIntegrationTestConfigura
 import com.darcstarsolutions.users.core.UserAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles(profiles="dev-integration")
-@ContextConfiguration(classes = { UserRepositoryIntegrationTestConfiguration.class,
+@ActiveProfiles(profiles = { "jpa", "dev-integration" })
+@ContextConfiguration(classes = {
+		UserRepositoryIntegrationTestConfiguration.class,
 		UserRepositoryConfig.class })
 public class UserAccountRepositoryTest {
 

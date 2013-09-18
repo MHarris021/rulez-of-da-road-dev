@@ -1,4 +1,4 @@
-package com.darcstarsolutions.games.rulezofdaroad.config;
+package com.darcstarsolutions.games.rulezofdaroad.config.utils;
 
 import javax.validation.Validation;
 import javax.validation.Validator;

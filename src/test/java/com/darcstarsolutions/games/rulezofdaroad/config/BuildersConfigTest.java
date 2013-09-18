@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.darcstarsolutions.common.utils.ValidationUtils;
+import com.darcstarsolutions.games.rulezofdaroad.config.builders.BuildersConfig;
+import com.darcstarsolutions.games.rulezofdaroad.config.utils.UtilsConfig;
 import com.darcstarsolutions.users.core.builders.UserAccountBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)

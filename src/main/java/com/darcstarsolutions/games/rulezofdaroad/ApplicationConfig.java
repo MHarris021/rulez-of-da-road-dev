@@ -3,14 +3,19 @@ package com.darcstarsolutions.games.rulezofdaroad;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = "com.darcstarsolutions.games.rulezofdaroad.config")
+@PropertySource(value = { "classpath:database.properties",
+		"classpath:mongo.properties" })
+@ComponentScan(basePackages = {
+		"com.darcstarsolutions.games.rulezofdaroad.config.utils",
+		"com.darcstarsolutions.games.rulezofdaroad.config.builders",
+		"com.darcstarsolutions.games.rulezofdaroad.config.repositories" })
 public class ApplicationConfig {
 
 	@Bean(name = "jpaPackagesToScanList")
@@ -21,9 +26,10 @@ public class ApplicationConfig {
 	}
 
 	@Bean
-	public static PropertyPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
-		
-		return propertyPlaceholderConfigurer;
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+		propertySourcesPlaceholderConfigurer.setIgnoreResourceNotFound(true);
+		return propertySourcesPlaceholderConfigurer;
 	}
+
 }

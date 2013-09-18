@@ -1,4 +1,4 @@
-package com.darcstarsolutions.games.rulezofdaroad.config;
+package com.darcstarsolutions.games.rulezofdaroad.config.builders;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

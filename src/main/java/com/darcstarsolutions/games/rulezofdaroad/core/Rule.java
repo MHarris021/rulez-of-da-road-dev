@@ -1,8 +1,12 @@
 package com.darcstarsolutions.games.rulezofdaroad.core;
 
 import java.io.Serializable;
+import java.util.List;
 
-public interface Rule<T extends Serializable> extends Serializable{
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "rules")
+public interface Rule<T extends Serializable> extends Serializable {
 
 	/**
 	 * @return the name
@@ -25,8 +29,10 @@ public interface Rule<T extends Serializable> extends Serializable{
 	 *            the description to set
 	 */
 	public void setDescription(String description);
-	
+
 	@SuppressWarnings("unchecked")
-	public void applyTo(T...things);
+	public void applyTo(T... things);
+	
+	public void applyTo(List<T> things);
 
 }

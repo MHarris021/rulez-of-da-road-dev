@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.darcstarsolutions.users.repositories.jpa.UserAccountRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("dev-local")
+@ActiveProfiles(profiles={"jpa", "dev-local"})
 @ContextConfiguration(classes = { UserRepositoryTestConfig.class,
 		UserRepositoryConfig.class })
 public class UserRepositoryConfigTest {
