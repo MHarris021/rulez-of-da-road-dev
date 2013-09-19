@@ -21,16 +21,16 @@ public abstract class RuleBuilder<T extends Serializable, S extends Rule<T>, U e
 	}
 
 	@SuppressWarnings("unchecked")
-	public U createRule(@NotEmpty Object... objects)
+	public U createRule(@NotEmpty String name, @NotEmpty Object... objects)
 			throws ConstraintViolationException {
-		S rule = initializeRule(objects);
+		S rule = initializeRule(name, objects);
 		if (validationUtils.validate(rule)) {
 			setEntity(rule);
 		}
 		return (U) this;
 	}
 
-	protected abstract <P extends S> P initializeRule(@NotEmpty Object... objects)
+	protected abstract <P extends S> P initializeRule(@NotEmpty String name, Object... objects)
 			throws ConstraintViolationException;
 
 	@SuppressWarnings("unchecked")

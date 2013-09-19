@@ -12,7 +12,7 @@ public class GameRule extends BasicRule<Game> implements Serializable,
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private List<Rule<Player>> playerRules;
+	private List<? extends Rule<Player>> playerRules;
 
 	public GameRule() {
 	}
@@ -27,11 +27,11 @@ public class GameRule extends BasicRule<Game> implements Serializable,
 
 	}
 
-	public List<Rule<Player>> getPlayerRules() {
+	public List<? extends Rule<Player>> getPlayerRules() {
 		return playerRules;
 	}
 
-	public void setPlayerRules(List<Rule<Player>> playerRules) {
+	public void setPlayerRules(List<? extends Rule<Player>> playerRules) {
 		this.playerRules = playerRules;
 	}
 

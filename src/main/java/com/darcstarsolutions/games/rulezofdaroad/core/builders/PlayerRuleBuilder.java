@@ -27,28 +27,20 @@ public class PlayerRuleBuilder extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected <P extends PlayerRule> P initializeRule(
-			@NotEmpty Object... objects) throws ConstraintViolationException {
+	protected <P extends PlayerRule> P initializeRule(@NotEmpty String name,
+			Object... objects) throws ConstraintViolationException {
 		PlayerRule playerRule = new PlayerRule();
-		String name = "Default";
 		String description = "";
-		long points = 0L;
-		if (objects[0] instanceof CharSequence) {
-			name = (String) objects[0];
-		} else {
-			throw new IllegalArgumentException(
-					"Arguments must contain rule name");
+		long points = 0;
+		if ((objects.length > 0) && (objects[0] instanceof CharSequence)) {
+			description = (String) objects[0];
 		}
+		if (objects.length > 1) {
 
-		if ((objects.length > 1) && (objects[1] instanceof CharSequence)) {
-			description = (String) objects[1];
-		}
-		if (objects.length > 2) {
-
-			if (objects[2] instanceof Long) {
-				points = (Long) objects[2];
-			} else if (objects[2] instanceof Integer) {
-				points = (Integer) objects[2];
+			if (objects[1] instanceof Long) {
+				points = (Long) objects[1];
+			} else if (objects[1] instanceof Integer) {
+				points = (Integer) objects[1];
 			}
 		}
 		playerRule.setName(name);

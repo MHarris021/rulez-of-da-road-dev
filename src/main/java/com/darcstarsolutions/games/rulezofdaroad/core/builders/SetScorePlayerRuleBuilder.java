@@ -15,9 +15,9 @@ public class SetScorePlayerRuleBuilder extends PlayerRuleBuilder {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected <P extends PlayerRule> P initializeRule(
-			@NotEmpty Object... objects) throws ConstraintViolationException {
-		PlayerRule playerRule = super.initializeRule(objects);
+	protected <P extends PlayerRule> P initializeRule(@NotEmpty String name,
+			Object... objects) throws ConstraintViolationException {
+		PlayerRule playerRule = super.initializeRule(name, objects);
 		SetScorePlayerRule setScorePlayerRule = new SetScorePlayerRule();
 		setScorePlayerRule.setName(playerRule.getName());
 		setScorePlayerRule.setDescription(playerRule.getDescription());

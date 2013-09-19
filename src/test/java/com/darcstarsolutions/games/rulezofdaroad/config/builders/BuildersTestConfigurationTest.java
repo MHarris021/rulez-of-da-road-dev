@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,8 +36,8 @@ public class BuildersTestConfigurationTest implements ApplicationContextAware {
 	@Resource
 	private SetScorePlayerRule cemeteries;
 
-	@Autowired
-	private List<Rule<Player>> playerRules;
+	@Resource
+	private List<Rule<Player>> defaultPlayerRules;
 
 	@Resource
 	private PlayerTemplate defaultPlayerTemplate;
@@ -82,12 +81,12 @@ public class BuildersTestConfigurationTest implements ApplicationContextAware {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testPlayerRules() {
-		assertNotNull(playerRules);
-		assertEquals(3, playerRules.size());
+		assertNotNull(defaultPlayerRules);
+		assertEquals(3, defaultPlayerRules.size());
 		List<PlayerRule> rules = (List<PlayerRule>) applicationContext
 				.getBean("defaultPlayerRules");
 		assertNotNull(rules);
-		assertNotSame(playerRules, rules);
+		assertNotSame(defaultPlayerRules, rules);
 	}
 
 	@Test

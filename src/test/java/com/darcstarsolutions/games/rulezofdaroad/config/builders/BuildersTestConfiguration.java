@@ -49,6 +49,16 @@ public class BuildersTestConfiguration implements ApplicationContextAware {
 		return playerRule;
 	}
 
+	@Bean(name = "fog")
+	public PlayerRule fog() {
+		PlayerRuleBuilder playerRuleBuilder = (PlayerRuleBuilder) applicationContext
+				.getBean("playerRuleBuilder");
+		playerRuleBuilder.createRule("Fog")
+				.setDescription("Fog removes 1 point").setPoints(-1);
+		PlayerRule playerRule = playerRuleBuilder.build();
+		return playerRule;
+	}
+
 	@Bean(name = "cemeteries")
 	public SetScorePlayerRule cemeteries() {
 		SetScorePlayerRuleBuilder setScorePlayerRuleBuilder = (SetScorePlayerRuleBuilder) applicationContext
@@ -62,7 +72,7 @@ public class BuildersTestConfiguration implements ApplicationContextAware {
 
 	@Bean(name = "defaultPlayerRules")
 	@Scope(value = "prototype")
-	public List<Rule<Player>> playerRules() {
+	public List<Rule<Player>> defaultPlayerRules() {
 		List<Rule<Player>> rules = new ArrayList<Rule<Player>>();
 		rules.add(animals());
 		rules.add(restaurants());
@@ -75,7 +85,7 @@ public class BuildersTestConfiguration implements ApplicationContextAware {
 	public PlayerTemplate defaultPlayerTemplate() {
 		StandardPlayerTemplateBuilder playerTemplateBuilder = applicationContext
 				.getBean(StandardPlayerTemplateBuilder.class);
-		playerTemplateBuilder.createPlayerTemplate(playerRules())
+		playerTemplateBuilder.createPlayerTemplate(defaultPlayerRules())
 				.setDescription("Default Player Template");
 		PlayerTemplate playerTemplate = playerTemplateBuilder.build();
 		return playerTemplate;
